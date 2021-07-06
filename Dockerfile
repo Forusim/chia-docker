@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 
 ARG DEBIAN_FRONTEND="noninteractive"
-ARG BRANCH="latest"
+ARG BRANCH="main"
 
 EXPOSE 8555
 EXPOSE 8444
@@ -14,20 +14,17 @@ ENV farmer_address="null"
 ENV farmer_port="null"
 ENV testnet="false"
 ENV full_node_port="null"
-ENV TZ="UTC"
 
 RUN apt-get update \
- && apt-get install -y curl jq python3 ansible tar bash ca-certificates git openssl unzip wget python3-pip sudo acl build-essential python3-dev python3.8-venv python3.8-distutils apt nfs-common python-is-python3 vim tzdata
+ && apt-get install -y tzdata ca-certificates git lsb-release sudo nano
 
 RUN git clone --branch ${BRANCH} https://github.com/Chia-Network/chia-blockchain.git --recurse-submodules \
  && cd chia-blockchain \
- && chmod +x install.sh && ./install.sh \
- && . ./activate && chia init
+ && chmod +x install.sh && ./install.sh
 
 ENV PATH=/chia-blockchain/venv/bin/:$PATH
-WORKDIR /chia-blockchain
 
-VOLUME /config
+WORKDIR /chia-blockchain
 
 COPY ./entrypoint.sh entrypoint.sh
 ENTRYPOINT ["bash", "./entrypoint.sh"]
