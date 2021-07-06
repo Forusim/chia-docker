@@ -1,15 +1,13 @@
 #!/bin/bash
 
-DBDIR=/root/.chia/mainnet/db
-
 cd /chia-blockchain
 
 . ./activate
 
-if [[ ! -d $DBDIR ]]; then
+if [[ $(chia keys show | wc -l) -lt 5 ]]; then
     if [[ ${keys} == "generate" ]]; then
       echo "to use your own keys pass them as a text file -v /path/to/keyfile:/path/in/container and -e keys=\"/path/in/container\""
-      chia keys generate
+      chia init && chia keys generate
     elif [[ ${keys} == "copy" ]]; then
       if [[ -z ${ca} ]]; then
         echo "A path to a copy of the farmer peer's ssl/ca required."
@@ -21,7 +19,7 @@ if [[ ! -d $DBDIR ]]; then
       echo "Call from docker shell: chia keys add"
       echo "Restart the container after mnemonic input"
     else
-      chia keys add -f ${keys}
+      chia init && chia keys add -f ${keys}
     fi
 else
     for p in ${plots_dir//:/ }; do
