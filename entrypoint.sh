@@ -16,6 +16,7 @@ if [[ $(chia keys show | wc -l) -lt 5 ]]; then
       chia init -c ${ca}
       fi
     elif [[ ${keys} == "type" ]]; then
+      chia init
       echo "Call from docker shell: chia keys add"
       echo "Restart the container after mnemonic input"
     else
