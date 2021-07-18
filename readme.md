@@ -31,4 +31,4 @@ On first start with recommended `-e KEYS=type`:
 * Open docker shell `docker exec -it <containerid> sh`
 * Check synchronization `chia show -s -c`
 * Check farming `chia farm summary`
-* Check balance `chia wallet show summary` 
+* Check balance `chia wallet show` 
