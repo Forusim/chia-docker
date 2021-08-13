@@ -49,8 +49,8 @@ else
 fi
 
 finish () {
-    echo "$(date): Shutting down flax"
-    flax stop all
+    echo "$(date): Shutting down chia"
+    chia stop all
     exit 0
 }
 
