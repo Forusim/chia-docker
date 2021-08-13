@@ -3,9 +3,6 @@ FROM ubuntu:latest
 ARG DEBIAN_FRONTEND="noninteractive"
 ARG BRANCH="main"
 
-EXPOSE 8555
-EXPOSE 8444
-
 ENV keys="generate"
 ENV harvester="false"
 ENV farmer="false"
@@ -24,6 +21,8 @@ RUN git clone --branch ${BRANCH} https://github.com/Chia-Network/chia-blockchain
 
 ENV PATH=/chia-blockchain/venv/bin/:$PATH
 
+EXPOSE 8555
+EXPOSE 8444
 WORKDIR /chia-blockchain
 
 COPY ./entrypoint.sh entrypoint.sh
